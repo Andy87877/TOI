@@ -1,23 +1,51 @@
-// 還沒寫完
 #include <iostream>
 using namespace std;
 
 int main() {
-    int m, n;
+    int m,n;
     cin >> m >> n;
 
-    int Array[m][n];
-    for (int i = 0; i < m ; i++) {
+    int array[m][n];
+    for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            cin >> Array[i][j];
+            cin >> array[i][j];
         }
     }
-
-    int col[m];//行中間數
-    for (int i = 0; i < m ; i++) {
-        bool flag = true; // 是否有黑出現過了
+    cout << "=======================================\n";
+    for (int i = 0; i < m; i++) {
+        bool temp = false; //是否為要改顏色
+        bool odd = false; //是不是第奇數個
         for (int j = 0; j < n; j++) {
-            if (Array[i])
+            if (temp) { //改
+                bool tempback = false; //後面是否還有黑色
+                for (int k = j; k < n; k++) {
+                    if (array[i][k] == 1) {
+                        tempback = true;
+                        break;
+                    }
+                }
+                if (tempback) {
+                    array[i][j] = 1;
+                    if (array[i][j] == 1) {
+                        temp = false;
+                    }
+                }
+            } else { //不改
+                if (array[i][j] == 1) {
+                    temp = true;
+                    if (odd) {
+                        odd = false;
+                    } else {
+                        odd = true;
+                    }
+                } 
+            }
         }
     }
-} 
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << array[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
